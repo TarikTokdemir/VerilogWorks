@@ -30,6 +30,8 @@ fifo #(
 
 
 reg [W:0] w_pointer_tb, r_pointer_tb;
+reg [W:0] j = 0 ;
+reg [W:0] i = 0 ;
 
 initial begin
     clk_tb = 0;
@@ -52,10 +54,12 @@ initial begin
     
     wr_tb = 1; // just write [0] first index. real write_pointer_reg = 0
     w_data_tb = $urandom % 255; //in this situation , automaticly read 0. index. "r_data = array_reg [r_ptr_reg];"
+    j = j + 1 ; 
     #10;
     
     wr_tb = 1; // just write [1] second index. real write_pointer_reg = 1
     w_data_tb = $urandom % 255;
+    j = j + 1 ; 
     #10;
     
     write_read(); //  write [2] third index. real write_pointer_reg = 2 . then also read 
@@ -113,14 +117,15 @@ task fifo_read;
     end
 endtask
 
-integer i ; 
 task write_read; // in same cycle
     begin
         wr_tb = 1;
         rd_tb = 1;
         for (i = 0; i < 2**W; i = i + 1) begin
-            $display("w_pointer_tb = %d, r_pointer_tb = %d, Out_bin = %b, Out_deci = %d, Empty = %d, Full = %d",
-            w_pointer_tb, r_pointer_tb, r_data_tb, r_data_tb, empty_tb, full_tb, empty_tb, full_tb);
+            if (j > (2**W)-2 ) j = 0;
+            else  j = j + 1 ; 
+            $display("w_pointer_tb=%d, r_pointer_tb=%d, Out_bin = %b, Out_deci=%d, Empty=%d, Full=%d",
+            j, i, r_data_tb, r_data_tb, empty_tb, full_tb, empty_tb, full_tb);
             $display( "" , empty_tb, full_tb );
             #10;
         end
