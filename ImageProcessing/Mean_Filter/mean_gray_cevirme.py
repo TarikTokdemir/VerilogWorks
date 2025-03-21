@@ -44,7 +44,7 @@ with open("mean_python_output.mem", "w") as f:
 
 print("Mean filtresi sonrası kaydırmalı görüntü kaydedildi: mean_python_output.mem")
 
-# 📌 Pencereleri kapatmak için 'q' tuşuna basılmasını bekle
+#  Pencereleri kapatmak için 'q' tuşuna basılmasını bekle
 while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
