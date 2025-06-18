@@ -22,8 +22,8 @@ reg [7:0]   iteration_cntr  ;
 
 
 reg median_done_reg ; 
-assign median_done = median_done_reg ; 
-reg data_o_median_reg ; 
+assign median_done = median_done_reg ;
+reg [7:0] data_o_median_reg ; 
 assign data_o_median = data_o_median_reg ; 
 
 reg [2:0] STATE_MED ; 
